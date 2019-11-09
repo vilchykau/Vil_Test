@@ -23,6 +23,7 @@ void ModuleName##TestName()
 
 #include "failed_assert_exception.h"
 #include "vtest_function_header.h"
+#include "TestComplete.h"
 
 
 namespace vtest{
@@ -34,38 +35,46 @@ namespace vtest{
 
     std::map<std::string, std::map<std::string, void (*)()>> TestModules;
 
-    void RunFunction(const std::string& module_name, const std::string& test_name);
+    bool RunFunction(const std::string& module_name, const std::string& test_name);
 
     void AddTest(const std::string module_name, const std::string test_name, void (*fun)()){
         TestModules[module_name][test_name] = fun;
     }
 
     void RunTest(ALL_TESTS allTests){
+        TestComplete testComplete;
         for(const auto& module_pair : TestModules){
             for(const auto& test_pair : module_pair.second){
-                RunFunction(module_pair.first, test_pair.first);
+                testComplete.SetTestStatus(module_pair.first, test_pair.first, RunFunction(module_pair.first, test_pair.first));
             }
         }
+        (*default_ostream) << testComplete;
     }
 
     void RunTest(MODULE module){
+        TestComplete testComplete;
         for(const auto& test_pair : TestModules[module.name]){
-            RunFunction(module.name, test_pair.first);
+            testComplete.SetTestStatus(module.name, test_pair.first, RunFunction(module.name, test_pair.first));
         }
+        (*default_ostream) << testComplete;
     }
 
     void RunTest(TEST test){
-        RunFunction(test.module, test.test);
+        TestComplete testComplete;
+        testComplete.SetTestStatus(test.module, test.test, RunFunction(test.module, test.test));
+        (*default_ostream) << testComplete;
     }
 
-    void RunFunction(const std::string& module_name, const std::string& test_name){
+    bool RunFunction(const std::string& module_name, const std::string& test_name){
         try{
             TestModules[module_name][test_name]();
+            return true;
         }catch (FailedAssertException& e){
             std::stringstream ss;
             ss << "Failed in Module: " << module_name <<
                                     "   Test: " << test_name << '\n' << e.what() << '\n' << std::endl;
             (*default_ostream) << ss.str();
+            return false;
         }
     }
 };
