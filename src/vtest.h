@@ -6,5 +6,6 @@
 #define VIL_TEST_STEST_H
 
 #include "vassert.h"
+#include "vtest_function.h"
 
 #endif //VIL_TEST_STEST_H
