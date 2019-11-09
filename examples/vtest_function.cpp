@@ -19,17 +19,11 @@ VTEST(Module2, TestName1){
 }
 
 int main(){
-    std::cout << "Run module test: " << std::endl;
     vtest::RunTest(vtest::MODULE{"Module2"});
-    std::cout << std::endl << std::endl;
 
-    std::cout << "Run all tests: " << std::endl;
     vtest::RunTest(vtest::ALL_TESTS{});
-    std::cout << std::endl << std::endl;
 
-    std::cout << "Run single tests: " << std::endl;
     vtest::RunTest(vtest::TEST{"Module1", "TestName2"});
-    std::cout << std::endl << std::endl;
 
     return 0;
 }
