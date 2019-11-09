@@ -19,6 +19,7 @@ void ModuleName##TestName()
 #include <vector>
 #include <string>
 #include <ostream>
+#include <iostream>
 
 #include "failed_assert_exception.h"
 #include "vtest_function_header.h"
