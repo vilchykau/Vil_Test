@@ -62,8 +62,10 @@ namespace vtest{
         try{
             TestModules[module_name][test_name]();
         }catch (FailedAssertException& e){
-            (*default_ostream) << "Failed in Module: " << module_name <<
-                               "   Test: " << test_name << '\n' << e.what() << '\n' << std::endl;
+            std::stringstream ss;
+            ss << "Failed in Module: " << module_name <<
+                                    "   Test: " << test_name << '\n' << e.what() << '\n' << std::endl;
+            (*default_ostream) << ss.str();
         }
     }
 };
