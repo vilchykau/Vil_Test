@@ -8,8 +8,10 @@
 #include <sstream>
 
 #include "failed_assert_exception.h"
+#include "utilities.h"
 
 #define ASSERT_EQ(first, second) ASSERT_EQ_MSG(first, second, "")
+#define ASSERT_EQ_VAL(first, second) ASSERT_EQ_MSG(first, second, vtest::VAL_TO_STR(first, second))
 #define ASSERT_EQ_MSG(first, second, msg) vtest::AssertEquals(first, second, __LINE__, __FILE__, msg)
 
 namespace vtest {

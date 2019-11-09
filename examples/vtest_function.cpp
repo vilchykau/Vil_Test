@@ -11,7 +11,7 @@ VTEST(Module1, TestName1){
 }
 
 VTEST(Module1, TestName2){
-    std::cout << "module1 - test2" << std::endl;
+    ASSERT_EQ_VAL(4, 7);
 }
 
 VTEST(Module2, TestName1){
