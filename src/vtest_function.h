@@ -18,7 +18,6 @@ void ModuleName##TestName()
 #include <map>
 #include <vector>
 #include <string>
-
 #include <ostream>
 
 #include "failed_assert_exception.h"
@@ -63,7 +62,7 @@ namespace vtest{
             TestModules[module_name][test_name]();
         }catch (FailedAssertException& e){
             (*default_ostream) << "Failed in Module: " << module_name <<
-                               "Test: " << test_name << std::endl << e.what();
+                               "Test: " << test_name << '\n' << e.what() << '\n' << std::endl;
         }
     }
 };
