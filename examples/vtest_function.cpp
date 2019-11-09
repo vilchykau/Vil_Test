@@ -7,7 +7,7 @@
 #include "../src/vtest.h"
 
 VTEST(Module1, TestName1){
-    std::cout << "module1 - test1" << std::endl;
+    ASSERT_EQ(4, 5);
 }
 
 VTEST(Module1, TestName2){
@@ -17,7 +17,6 @@ VTEST(Module1, TestName2){
 VTEST(Module2, TestName1){
     std::cout << "module2 - test2" << std::endl;
 }
-
 
 int main(){
     std::cout << "Run module test: " << std::endl;
