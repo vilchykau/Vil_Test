@@ -19,6 +19,8 @@ void ModuleName##TestName()
 #include <vector>
 #include <string>
 
+#include <ostream>
+
 #include "vtest_function_header.h"
 
 
@@ -26,6 +28,8 @@ namespace vtest{
     struct ALL_TESTS{};
     struct MODULE{std::string name;};
     struct TEST{std::string module; std::string test;};
+
+    std::ostream *default_ostream = &std::cerr;
 
     std::map<std::string, std::map<std::string, void (*)()>> TestModules;
 
