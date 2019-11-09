@@ -11,7 +11,7 @@ VTEST(Module1, TestName1){
 }
 
 VTEST(Module1, TestName2){
-    ASSERT_EQ_VAL(4, 7);
+    HIDE_EXC(ASSERT_EQ_VAL(4, 7));
 }
 
 VTEST(Module2, TestName1){
