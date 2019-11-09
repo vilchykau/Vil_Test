@@ -21,6 +21,7 @@ void ModuleName##TestName()
 
 #include <ostream>
 
+#include "failed_assert_exception.h"
 #include "vtest_function_header.h"
 
 
@@ -33,6 +34,8 @@ namespace vtest{
 
     std::map<std::string, std::map<std::string, void (*)()>> TestModules;
 
+    void RunFunction(const std::string& module_name, const std::string& test_name);
+
     void AddTest(const std::string module_name, const std::string test_name, void (*fun)()){
         TestModules[module_name][test_name] = fun;
     }
@@ -40,19 +43,28 @@ namespace vtest{
     void RunTest(ALL_TESTS allTests){
         for(const auto& module_pair : TestModules){
             for(const auto& test_pair : module_pair.second){
-                test_pair.second();
+                RunFunction(module_pair.first, test_pair.first);
             }
         }
     }
 
     void RunTest(MODULE module){
         for(const auto& test_pair : TestModules[module.name]){
-            test_pair.second();
+            RunFunction(module.name, test_pair.first);
         }
     }
 
     void RunTest(TEST test){
-        TestModules[test.module][test.test]();
+        RunFunction(test.module, test.test);
+    }
+
+    void RunFunction(const std::string& module_name, const std::string& test_name){
+        try{
+            TestModules[module_name][test_name]();
+        }catch (FailedAssertException& e){
+            (*default_ostream) << "Failed in Module: " << module_name <<
+                               "Test: " << test_name << std::endl << e.what();
+        }
     }
 };
 
