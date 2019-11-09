@@ -20,7 +20,7 @@ namespace vtest {
             ss << "Assert failed on line: " << line <<
                   ".  In file: " << file_name;
             if(msg.size() > 0){
-                ss << ".   Message: " << msg;
+                ss << ".   \nMessage: " << msg;
             }
             throw vtest::FailedAssertException(&ss.str()[0]);
         }
