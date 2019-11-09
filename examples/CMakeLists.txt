@@ -1,0 +1,1 @@
+add_executable(expample_asserts asserts.cpp)
