@@ -31,10 +31,6 @@ namespace vtest{
     struct MODULE{std::string name;};
     struct TEST{std::string module; std::string test;};
 
-    std::ostream *default_ostream = &std::cerr;
-
-    std::map<std::string, std::map<std::string, void (*)()>> TestModules;
-
     bool RunFunction(const std::string& module_name, const std::string& test_name, std::vector<std::string>& mes);
     void PrintMessages(std::vector<std::string> mes){
         std::stringstream ss;
